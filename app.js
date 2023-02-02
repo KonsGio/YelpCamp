@@ -3,11 +3,8 @@ const path = require('path');
 const mongoose = require('mongoose');
 
 // This is a developing database
-mongoose.connect('mongodb://localhost:27017/yelp-camp', {
-    userNewUrlParser: true,
-    useCreateIndex: true,
-    useUnifiedTopology: true,
-});
+mongoose.set('strictQuery', false);
+mongoose.connect('mongodb://localhost:27017/yelp-camp');
 
 // Checking if the connection is made
 const db = mongoose.connection;
