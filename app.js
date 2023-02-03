@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
+const methodOverride = require('method-override');
 const Campground = require('./models/campground');
 require('dotenv').config();
 
@@ -24,6 +25,8 @@ app.set('views', path.join(__dirname, 'views'));
 
 // parsing body data
 app.use(express.urlencoded({ extended: true}));
+
+app.use(methodOverride('_method'));
 
 app.get('/', (req, res) => {
     res.render('home');
@@ -49,6 +52,16 @@ app.get('/campgrounds/:id', async (req, res) => {
     res.render('campgrounds/show', {campground});
 })
 
+app.get('/campgrounds/:id/edit', async (req, res) => {
+    const campground = await Campground.findById(req.params.id);
+    res.render('campgrounds/edit', {campground});
+})
+
+app.put('/campgrounds/:id', async (req, res) => {
+    const {id} = req.params;
+    const campground = await Campground.findByIdAndUpdate(id, {...req.body.campground});
+    res.redirect(`/campgrounds/${campground._id}`);
+});
 
 // start with nodemon app.js
 app.listen(3000, () => {
