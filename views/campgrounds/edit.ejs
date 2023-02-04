@@ -1,19 +1,45 @@
 <% layout('layouts/boilerplate') %> 
-
-    <h1>Edit Campground</h1>
-    <form action="/campgrounds/<%=campground._id%>?_method=PUT " method="POST">
-        <div>
-            <label for="title">Title</label>
-            <!-- grouping content together -->
-            <input type="text" id="title" name="campground[title]" value="<%= campground.title %> ">
+    <div class="row">
+        <h1 class="text-center">New Campground</h1>
+        <div class="col-6 offset-3">
+            <form action="/campgrounds/<%=campground._id%>?_method=PUT " method="POST">
+                <div class="mb-3">
+                <label class="form-label" for="title">Title</label>
+                <!-- grouping content together -->
+                <input class="form-control" type="text" id="title" name="campground[title]" 
+                    value="<%= campground.title %> ">
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="location">Location</label>
+                <!-- grouping content together -->
+                <input class="form-control" type="text" id="location" name="campground[location]" 
+                    value="<%= campground.location %> ">
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="image">Image url</label>
+                <!-- grouping content together -->
+                <input class="form-control" type="text" id="image" name="campground[image]" 
+                    value="<%= campground.image %> ">
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="price">Campground Price</label>
+                <div class="input-group">
+                    <span class="input-group-text" id="price-label">€</span>
+                    <input type="text" class="form-control" placeholder="0.00" id="price" aria-label="price" aria-describedby="basic-addon1" name="campground[price]"
+                        value="<%= campground.price %> ">
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="description">Description</label>
+                <!-- grouping content together -->
+                <textarea class="form-control" type="text" id="description" name="campground[description]">
+                    <%= campground.description %> </textarea>
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-info">Save</button>
+            </div>
+            </form>
+        <footer>
+            <a href="/campgrounds">Back to Campgrounds</a>
+        </footer>
         </div>
-        <div>
-            <label for="location">Location</label>
-            <!-- grouping content together -->
-            <input type="text" id="location" name="campground[location]" value="<%= campground.location %> ">
-        </div>
-        <button>Save</button>
-    </form>
-    <footer>
-        <a href="/campgrounds/<%=campground._id%> ">Back to Campground</a>
-    </footer>
