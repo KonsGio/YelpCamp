@@ -51,27 +51,27 @@ app.post('/campgrounds', catchAsync (async (req, res, next) => {
         res.redirect(`/campgrounds/${campground._id}`);
 }));
 
-app.get('/campgrounds/:id', async (req, res) => {
+app.get('/campgrounds/:id', catchAsync (async (req, res) => {
     const campground = await Campground.findById(req.params.id);
     res.render('campgrounds/show', {campground});
-})
+}))
 
-app.get('/campgrounds/:id/edit', async (req, res) => {
+app.get('/campgrounds/:id/edit', catchAsync (async (req, res) => {
     const campground = await Campground.findById(req.params.id);
     res.render('campgrounds/edit', {campground});
-})
+}))
 
-app.put('/campgrounds/:id', async (req, res) => {
+app.put('/campgrounds/:id', catchAsync (async (req, res) => {
     const {id} = req.params;
     const campground = await Campground.findByIdAndUpdate(id, {...req.body.campground});
     res.redirect(`/campgrounds/${campground._id}`);
-});
+}))
 
-app.delete('/campgrounds/:id', async (req, res) => {
+app.delete('/campgrounds/:id', catchAsync (async (req, res) => {
     const {id} = req.params;
     await Campground.findByIdAndDelete(id);
     res.redirect('/campgrounds');
-});
+}))
 
 app.use((err, req, res, next) => {
     res.send('Oh Boy something went wrong');
