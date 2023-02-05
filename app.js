@@ -35,11 +35,13 @@ app.use(methodOverride('_method'));
 app.get('/', (req, res) => {
     res.render('home');
 })
+
 // Showing all campgrounds
-app.get('/campgrounds', async (req, res) => {
+app.get('/campgrounds', catchAsync (async (req, res) => {
     const campgrounds = await Campground.find({});
     res.render('campgrounds/index', {campgrounds});
-})
+}))
+
 // Adding a new campground page
 app.get('/campgrounds/new', (req, res) => {
     res. render('campgrounds/new')
