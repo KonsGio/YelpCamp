@@ -91,10 +91,11 @@ app.all('*', (req, res, next) => {
 // Showing generic error message
 app.use((err, req, res, next) => {
     // taking statusCode and message from catchAsync with default values
-    const {statusCode = 500, message = 'Something went wrong'} = err;
-    res.status(statusCode).send(message);
-    res.send('Oh Boy something went wrong');
-});
+    const {statusCode = 500} = err;
+    if(!err.message) err.message = 'Oh no something bad happened'
+    // Passing err to the error template
+    res.status(statusCode).render('error', {err});   
+})
 
 // start with nodemon app.js
 app.listen(3000, () => {
