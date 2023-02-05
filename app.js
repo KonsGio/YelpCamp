@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
 const ejsMate = require('ejs-mate');
+const catchAsync = require('./utils/catchAsync');
 const methodOverride = require('method-override');
 const Campground = require('./models/campground');
 require('dotenv').config();
@@ -44,15 +45,11 @@ app.get('/campgrounds/new', (req, res) => {
     res. render('campgrounds/new')
 })
 
-app.post('/campgrounds', async (req, res, next) => {
-    try {
+app.post('/campgrounds', catchAsync (async (req, res, next) => {
         const campground = new Campground(req.body.campground);
         await campground.save();
         res.redirect(`/campgrounds/${campground._id}`);
-    } catch (e) {
-        next(e);
-    }
-});
+}));
 
 app.get('/campgrounds/:id', async (req, res) => {
     const campground = await Campground.findById(req.params.id);
