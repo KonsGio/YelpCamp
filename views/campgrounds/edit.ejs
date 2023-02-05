@@ -1,39 +1,49 @@
 <% layout('layouts/boilerplate') %> 
     <div class="row">
-        <h1 class="text-center">New Campground</h1>
+        <h1 class="text-center">Edit Campground</h1>
         <div class="col-6 offset-3">
-            <form action="/campgrounds/<%=campground._id%>?_method=PUT " method="POST">
+            <form action="/campgrounds/<%=campground._id%>?_method=PUT " method="POST" novalidate class="validated-form">
                 <div class="mb-3">
                 <label class="form-label" for="title">Title</label>
                 <!-- grouping content together -->
-                <input class="form-control" type="text" id="title" name="campground[title]" 
-                    value="<%= campground.title %> ">
+                <input class="form-control" type="text" id="title" name="campground[title]"  required value="<%=campground.title%> " >
+                    <div class="valid-feedback">
+                        Title looks good!
+                      </div>
             </div>
             <div class="mb-3">
                 <label class="form-label" for="location">Location</label>
                 <!-- grouping content together -->
-                <input class="form-control" type="text" id="location" name="campground[location]" 
-                    value="<%= campground.location %> ">
+                <input class="form-control" type="text" id="location" name="campground[location]"  required value="<%=campground.location%> ">
+                    <div class="valid-feedback">
+                        Location found!
+                        </div>
             </div>
             <div class="mb-3">
                 <label class="form-label" for="image">Image url</label>
                 <!-- grouping content together -->
-                <input class="form-control" type="text" id="image" name="campground[image]" 
-                    value="<%= campground.image %> ">
+                <input class="form-control" type="text" id="image" name="campground[image]"  required value="<%=campground.image%> ">
+                    <div class="valid-feedback">
+                        Image accepted!
+                        </div>
             </div>
             <div class="mb-3">
                 <label class="form-label" for="price">Campground Price</label>
                 <div class="input-group">
                     <span class="input-group-text" id="price-label">€</span>
-                    <input type="text" class="form-control" placeholder="0.00" id="price" aria-label="price" aria-describedby="basic-addon1" name="campground[price]"
-                        value="<%= campground.price %> ">
+                    <input type="text" class="form-control" placeholder="0.00" id="price" aria-label="price" aria-describedby="basic-addon1" name="campground[price]" required value="<%=campground.price%> ">
+                        <div class="valid-feedback">
+                            Fair price!
+                           </div>
                 </div>
             </div>
             <div class="mb-3">
                 <label class="form-label" for="description">Description</label>
                 <!-- grouping content together -->
-                <textarea class="form-control" type="text" id="description" name="campground[description]">
-                    <%= campground.description %> </textarea>
+                <textarea class="form-control" type="text" id="description" name="campground[description]" required><%=campground.description%> </textarea>
+                    <div class="valid-feedback">
+                        Sounds interesting!
+          </div>
             </div>
             <div class="mb-3">
                 <button class="btn btn-info">Save</button>
