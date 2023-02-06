@@ -3,6 +3,8 @@ const path = require('path');
 const mongoose = require('mongoose');
 const ejsMate = require('ejs-mate');
 const Joi = require('joi');
+// Distructuring schema because we need multiple schemas
+const {campgroundSchema} = require('./schemas.js');
 const catchAsync = require('./utils/catchAsync');
 const ExpressError = require('./utils/ExpressError');
 const methodOverride = require('method-override');
@@ -36,15 +38,6 @@ app.use(methodOverride('_method'));
 
 // Middleware function to use JOI anywhere adding it to function as such (validateCampground, catchAsync)
 const validateCampground = (req, res, next) => {
-    const campgroundSchema = Joi.object({
-        campground: Joi.object({
-            title: Joi.string().required(),
-            price: Joi.number().required().min(0),
-            image: Joi.string().required(),
-            location: Joi.string().required(),
-            description: Joi.string().required()
-        }).required()
-    }) 
     const {error} = campgroundSchema.validate(req.body);
     if(error){
         const msg = error.details.map(el => el.message).join(',')
