@@ -34,7 +34,7 @@ app.use(express.urlencoded({ extended: true}));
 
 app.use(methodOverride('_method'));
 
-// Middleware function to use JOI anywhere 
+// Middleware function to use JOI anywhere adding it to function as such (validateCampground, catchAsync)
 const validateCampground = (req, res, next) => {
     const campgroundSchema = Joi.object({
         campground: Joi.object({
@@ -91,7 +91,7 @@ app.get('/campgrounds/:id/edit', catchAsync (async (req, res) => {
 }))
 
 // Updating campground by id
-app.put('/campgrounds/:id', catchAsync (async (req, res) => {
+app.put('/campgrounds/:id', validateCampground, catchAsync (async (req, res) => {
     const {id} = req.params;
     const campground = await Campground.findByIdAndUpdate(id, {...req.body.campground});
     res.redirect(`/campgrounds/${campground._id}`);
