@@ -1,6 +1,6 @@
 const Joi = require('joi');
 
-// Schema for error messages
+// Schema for error messages template
 module.exports.campgroundSchema = Joi.object({
     campground: Joi.object({
         title: Joi.string().required(),
