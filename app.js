@@ -97,6 +97,11 @@ app.delete('/campgrounds/:id', catchAsync (async (req, res) => {
     res.redirect('/campgrounds');
 }))
 
+// Submitting the review form to this url
+app.post('/campgrounds/:id/reviews', catchAsync (async (req, res) => {
+    res.send('You made it');
+}))
+
 // Passing a new ExpressError to next * means that all other error checks passed through ok
 // It means that campgrounds/anything is an error with 404 status
 app.all('*', (req, res, next) => {
