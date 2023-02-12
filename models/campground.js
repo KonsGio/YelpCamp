@@ -8,6 +8,13 @@ const CampgroundSchema = new Schema ({
     price: Number,
     description: String,
     location: String,
+    reviews: [
+        {
+            // Object ID from a Review Model (revie.js) Redirecting to
+            type: Schema.Types.ObjectId,
+            ref: 'Review'
+        }
+    ]
 });
 
 module.exports = mongoose.model('Campground', CampgroundSchema);
