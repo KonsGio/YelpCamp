@@ -97,7 +97,9 @@ app.delete('/campgrounds/:id', catchAsync (async (req, res) => {
     res.redirect('/campgrounds');
 }))
 
+
 // Submitting the review form to this url
+
 app.post('/campgrounds/:id/reviews', catchAsync (async (req, res) => {
     res.send('You made it');
 }))
