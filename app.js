@@ -7,6 +7,7 @@ const Joi = require('joi');
 
 // Distructuring schema because we need multiple schemas
 const {campgroundSchema} = require('./schemas.js');
+const {reviewSchema} = require('./schemas.js');
 
 const catchAsync = require('./utils/catchAsync');
 const ExpressError = require('./utils/ExpressError');
@@ -42,6 +43,17 @@ app.use(methodOverride('_method'));
 // Middleware function to use JOI anywhere adding it to function as such (validateCampground, catchAsync)
 const validateCampground = (req, res, next) => {
     const {error} = campgroundSchema.validate(req.body);
+    if(error){
+        const msg = error.details.map(el => el.message).join(',')
+        throw new ExpressError(msg, 400)
+    }else{
+        next();
+    }
+}
+
+// Middleware for reviews
+const validateReview = (req, res, next) => {
+    const {error} = reviewSchema.validate(req.body);
     if(error){
         const msg = error.details.map(el => el.message).join(',')
         throw new ExpressError(msg, 400)
@@ -102,7 +114,7 @@ app.delete('/campgrounds/:id', catchAsync (async (req, res) => {
 
 
 // Submitting the review form to this url
-app.post('/campgrounds/:id/reviews', catchAsync (async (req, res) => {
+app.post('/campgrounds/:id/reviews', validateReview, catchAsync (async (req, res) => {
     const campground = await Campground.findById(req.params.id);
     const review = new Review(req.body.review);
     campground.reviews.push(review);
