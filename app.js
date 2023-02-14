@@ -40,6 +40,8 @@ app.use(express.urlencoded({ extended: true}));
 
 app.use(methodOverride('_method'));
 
+// Telling express to serve public directory
+app.use(express.static('public'));
 
 // Serving router files
 app.use('/campgrounds', campgrounds);
