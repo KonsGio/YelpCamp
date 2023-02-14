@@ -123,6 +123,15 @@ app.post('/campgrounds/:id/reviews', validateReview, catchAsync (async (req, res
     res.redirect(`/campgrounds/${campground._id}`);
 }))
 
+// Deleting reviews by id
+app.delete('/campgrounds/:id/reviews/:reviewId', catchAsync(async (req, res) => {
+    // using mongo $pull to remove review associated with specific id
+    const {id, reviewId} = req.params;
+    await Campground.findByIdAndUpdate(id, {$pull: { review: reviewId}});
+    await Review.findByIdAndDelete(req.params.reviewId);
+    res.redirect(`/campgrounds/${id}`);
+}))
+
 // Passing a new ExpressError to next * means that all other error checks passed through ok
 // It means that campgrounds/anything is an error with 404 status
 app.all('*', (req, res, next) => {
