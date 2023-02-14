@@ -3,17 +3,16 @@ const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
 const ejsMate = require('ejs-mate');
-const Joi = require('joi');
+
 // Distructuring schema because we need multiple schemas
-const {campgroundSchema} = require('./schemas.js');
-const {reviewSchema} = require('./schemas.js');
-const catchAsync = require('./utils/catchAsync');
+// const {campgroundSchema} = require('./schemas.js');
+// const {reviewSchema} = require('./schemas.js');
+
 const ExpressError = require('./utils/ExpressError');
 const methodOverride = require('method-override');
-const Campground = require('./models/campground');
-const Review = require('./models/review');
 
 const campgrounds = require('./routes/campgrounds');
+const reviews = require('./routes/reviews');
 
 // This is a developing database
 mongoose.connect(process.env.MONGODB_URI, {
@@ -21,6 +20,7 @@ mongoose.connect(process.env.MONGODB_URI, {
     useCreateIndex: true,
     useUnifiedTopology: true,
 });
+
 // Checking if the connection is made
 const db = mongoose.connection;
 db.on('error',console.error.bind(console, "Connection error"));
@@ -40,52 +40,17 @@ app.use(express.urlencoded({ extended: true}));
 
 app.use(methodOverride('_method'));
 
-// Middleware function to use JOI anywhere adding it to function as such (validateCampground, catchAsync)
-const validateCampground = (req, res, next) => {
-    const {error} = campgroundSchema.validate(req.body);
-    if(error){
-        const msg = error.details.map(el => el.message).join(',')
-        throw new ExpressError(msg, 400)
-    }else{
-        next();
-    }
-}
 
-// Middleware for reviews
-const validateReview = (req, res, next) => {
-    const {error} = reviewSchema.validate(req.body);
-    if(error){
-        const msg = error.details.map(el => el.message).join(',')
-        throw new ExpressError(msg, 400)
-    }else{
-        next();
-    }
-}
-
+// Serving router files
 app.use('/campgrounds', campgrounds);
+app.use('/campgrounds/:id/reviews', reviews);
+
+
 
 app.get('/', (req, res) => {
     res.render('home');
 })
 
-// Submitting the review form to this url
-app.post('/campgrounds/:id/reviews', validateReview, catchAsync (async (req, res) => {
-    const campground = await Campground.findById(req.params.id);
-    const review = new Review(req.body.review);
-    campground.reviews.push(review);
-    await review.save();
-    await campground.save();
-    res.redirect(`/campgrounds/${campground._id}`);
-}))
-
-// Deleting reviews by id
-app.delete('/campgrounds/:id/reviews/:reviewId', catchAsync(async (req, res) => {
-    // using mongo $pull to remove review associated with specific id
-    const {id, reviewId} = req.params;
-    await Campground.findByIdAndUpdate(id, {$pull: { review: reviewId}});
-    await Review.findByIdAndDelete(req.params.reviewId);
-    res.redirect(`/campgrounds/${id}`);
-}))
 
 // Passing a new ExpressError to next * means that all other error checks passed through ok
 // It means that campgrounds/anything is an error with 404 status
