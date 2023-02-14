@@ -4,7 +4,10 @@ const path = require('path');
 const mongoose = require('mongoose');
 const ejsMate = require('ejs-mate');
 
+// For setting up cookies
 const session = require('express-session');
+// For setting up flash
+const flash = require('connect-flash');
 
 // Distructuring schema because we need multiple schemas
 // const {campgroundSchema} = require('./schemas.js');
@@ -58,6 +61,15 @@ const sessionConfig = {
     }
 }
 app.use(session(sessionConfig));
+
+// Setting up flash
+app.use(flash());
+
+// Setting middleware to handle flush messages
+app.use((req, res, next) => {
+    res.locals.success = req.flash('success');
+    next();
+});
 
 // Serving router files
 app.use('/campgrounds', campgrounds);
