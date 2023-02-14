@@ -68,6 +68,7 @@ app.use(flash());
 // Setting middleware to handle flush messages
 app.use((req, res, next) => {
     res.locals.success = req.flash('success');
+    res.locals.error = req.flash('error');
     next();
 });
 
