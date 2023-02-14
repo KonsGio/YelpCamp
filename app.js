@@ -4,6 +4,8 @@ const path = require('path');
 const mongoose = require('mongoose');
 const ejsMate = require('ejs-mate');
 
+const session = require('express-session');
+
 // Distructuring schema because we need multiple schemas
 // const {campgroundSchema} = require('./schemas.js');
 // const {reviewSchema} = require('./schemas.js');
@@ -43,6 +45,14 @@ app.use(methodOverride('_method'));
 
 // Telling express to serve public directory
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Configuring sessions
+const sessionConfig = {
+    secret: 'thisisdemosecret',
+    resave: false,
+    saveUninitialized: true,
+}
+app.use(session(sessionConfig));
 
 // Serving router files
 app.use('/campgrounds', campgrounds);
