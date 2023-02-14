@@ -1,4 +1,5 @@
 require('dotenv').config();
+
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
@@ -19,6 +20,8 @@ const methodOverride = require('method-override');
 const campgrounds = require('./routes/campgrounds');
 const reviews = require('./routes/reviews');
 
+
+
 // This is a developing database
 mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
@@ -26,6 +29,7 @@ mongoose.connect(process.env.MONGODB_URI, {
     useUnifiedTopology: true,
     useFindAndModify: false,
 });
+
 
 // Checking if the connection is made
 const db = mongoose.connection;
@@ -49,6 +53,8 @@ app.use(methodOverride('_method'));
 // Telling express to serve public directory
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+
 // Configuring sessions
 const sessionConfig = {
     secret: 'thisisdemosecret',
@@ -61,6 +67,8 @@ const sessionConfig = {
     }
 }
 app.use(session(sessionConfig));
+
+
 
 // Setting up flash
 app.use(flash());
@@ -75,6 +83,8 @@ app.use((req, res, next) => {
 // Serving router files
 app.use('/campgrounds', campgrounds);
 app.use('/campgrounds/:id/reviews', reviews);
+
+
 
 
 
