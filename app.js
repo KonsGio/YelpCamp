@@ -20,7 +20,9 @@ const methodOverride = require('method-override');
 const campgrounds = require('./routes/campgrounds');
 const reviews = require('./routes/reviews');
 
-
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
+const User = require('./models/user');
 
 // This is a developing database
 mongoose.connect(process.env.MONGODB_URI, {
@@ -53,8 +55,6 @@ app.use(methodOverride('_method'));
 // Telling express to serve public directory
 app.use(express.static(path.join(__dirname, 'public')));
 
-
-
 // Configuring sessions
 const sessionConfig = {
     secret: 'thisisdemosecret',
@@ -66,12 +66,19 @@ const sessionConfig = {
         maxAge: 1000 * 60 * 60 
     }
 }
+
 app.use(session(sessionConfig));
-
-
-
 // Setting up flash
 app.use(flash());
+
+// Middleware for persistent loging sessions
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Using local strategy in User model called authenticate
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser()); // From passport mongoose plugin
+passport.deserializeUser(User.deserializeUser()); 
 
 // Setting middleware to handle flush messages
 app.use((req, res, next) => {
