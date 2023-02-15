@@ -33,15 +33,17 @@ router.post('/', isLoggedIn, validateCampground, catchAsync (async (req, res, ne
     // if(!req.body.campground) throw new ExpressError('Incomplete Campground Data', 400);
     
     const campground = new Campground(req.body.campground);
+    // Holding in the author id
+    campground.author = re.user._id;
     await campground.save();
     // Flash success message
         req.flash('success',`${campground.title} successfully created!`)
         res.redirect(`/campgrounds/${campground._id}`);
 }))
 
-// Showing campground by id
+// Showing campground by id ----- populating review data and author data for use  in templates
 router.get('/:id', catchAsync (async (req, res) => {
-    const campground = await Campground.findById(req.params.id).populate('reviews');
+    const campground = await Campground.findById(req.params.id).populate('reviews').populate('author');
     if(!campground){
         req.flash('error','Campground does not exist!')
         return res.redirect('/campgrounds');
