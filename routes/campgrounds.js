@@ -34,7 +34,7 @@ router.post('/', isLoggedIn, validateCampground, catchAsync (async (req, res, ne
     
     const campground = new Campground(req.body.campground);
     // Holding in the author id
-    campground.author = re.user._id;
+    campground.author = req.user._id;
     await campground.save();
     // Flash success message
         req.flash('success',`${campground.title} successfully created!`)
