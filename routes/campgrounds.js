@@ -29,7 +29,7 @@ router.get('/new', isLoggedIn, (req, res) => {
 })
 
 //  --------------------------------
-router.post('/', validateCampground, catchAsync (async (req, res, next) => {
+router.post('/', isLoggedIn, validateCampground, catchAsync (async (req, res, next) => {
     // if(!req.body.campground) throw new ExpressError('Incomplete Campground Data', 400);
     
     const campground = new Campground(req.body.campground);
@@ -50,13 +50,13 @@ router.get('/:id', catchAsync (async (req, res) => {
 }))
 
 // Editing campground by id
-router.get('/:id/edit', catchAsync (async (req, res) => {
+router.get('/:id/edit', isLoggedIn, catchAsync (async (req, res) => {
     const campground = await Campground.findById(req.params.id);
     res.render('campgrounds/edit', {campground});
 }))
 
 // Updating campground by id
-router.put('/:id', validateCampground, catchAsync (async (req, res) => {
+router.put('/:id', isLoggedIn, validateCampground, catchAsync (async (req, res) => {
     const {id} = req.params;
     const campground = await Campground.findByIdAndUpdate(id, {...req.body.campground});
     req.flash('success',`${campground.title} successfully updated!`)
@@ -64,7 +64,7 @@ router.put('/:id', validateCampground, catchAsync (async (req, res) => {
 }))
 
 // Deleting campground by id
-router.delete('/:id', catchAsync (async (req, res) => {
+router.delete('/:id', isLoggedIn, catchAsync (async (req, res) => {
     const {id} = req.params;
     await Campground.findByIdAndDelete(id);
     req.flash('success','Campground successfully deleted!')
