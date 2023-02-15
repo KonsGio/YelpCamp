@@ -81,8 +81,9 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser()); // From passport mongoose plugin
 passport.deserializeUser(User.deserializeUser()); 
 
-// Setting middleware to handle flush messages
+// Setting middleware access
 app.use((req, res, next) => {
+    res.locals.currentUser = req.user;
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
     next();
