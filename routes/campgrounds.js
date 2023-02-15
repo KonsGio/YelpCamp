@@ -24,6 +24,10 @@ router.get('/', catchAsync (async (req, res) => {
 
 // Adding a new campground page
 router.get('/new', (req, res) => {
+    if(!req.isAuthenticated()){
+        req.flash('error', 'You must be logged in');
+        res.redirect('/login');
+    }
     res. render('campgrounds/new')
 })
 
