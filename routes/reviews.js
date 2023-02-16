@@ -3,15 +3,15 @@ const express = require("express");
 // in app.js and granting access to review campground id
 const router = express.Router({mergeParams: true});
 const catchAsync = require('../utils/catchAsync');
-const campgrounds = require('../controllers/reviews');
+const reviews = require('../controllers/reviews');
 const { isLoggedIn, validateReview, isReviewAuthor } = require("../middleware");
 
 
 
 // Submitting the review form to this url
-router.post('/', isLoggedIn, validateReview, catchAsync (campgrounds.createReview))
+router.post('/', isLoggedIn, validateReview, catchAsync (reviews.createReview))
 
 // Deleting reviews by id
-router.delete('/:reviewId', isLoggedIn, isReviewAuthor, catchAsync(campgrounds.deleteReview))
+router.delete('/:reviewId', isLoggedIn, isReviewAuthor, catchAsync(reviews.deleteReview))
 
 module.exports = router;
