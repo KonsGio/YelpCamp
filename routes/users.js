@@ -33,7 +33,7 @@ router.post('/login', passport.authenticate('local', {failureFlash: true, failur
         req.flash('success', 'Welcome back');
 
         // Taking URL before login from middleware
-        const redirectUrl = req.session.returnT || '/campgrounds';
+        const redirectUrl = req.session.returnTo || '/campgrounds';
         delete req.session.returnTo;
 
         res.redirect(redirectUrl);
