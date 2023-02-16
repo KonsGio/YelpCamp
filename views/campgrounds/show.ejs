@@ -6,7 +6,7 @@
             <div class="carousel-inner">
                 <% campground.images.forEach((img, i) => {  %>
                 <div class="carousel-item <%= i === 0 ? 'active' : ''%>">
-                    <img src="<%= img.url%>" class="d-block w-100" alt="">
+                    <img src="<%= img.url %>" class="d-block w-100" alt="">
                 </div>
                 <% }) %>
 
@@ -79,11 +79,10 @@
             <% for(let review of campground.reviews) { %>
             <div class="card mb-3 ">
                 <div class="card-body">
-                    <h5 class="card-title"> <%= review.author.username%></h5>
                     <p class="starability-result" data-rating="<%=review.rating%>">
                         Rated: <%= review.rating %> stars
                     </p>
-                    <!-- <h6 class="card-subtitle mb-2 text-muted">By <%= review.author.username%></h6> -->
+                    <h6 class="card-subtitle mb-2 text-muted">By <%= review.author.username%></h6>
                     <p class="card-text">Review: <%= review.body %></p>
                     <%  if( currentUser && review.author.equals(currentUser._id))  {%>
                     <form action="/campgrounds/<%=campground._id%>/reviews/<%=review._id%>?_method=DELETE" method="POST">

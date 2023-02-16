@@ -20,10 +20,6 @@
                         </div>
             </div>
             <div class="mb-3">
-                <label class="form-label" for="image">Add images</label>
-                <input type="file" name="image" id="image" multiple>
-            </div>
-            <div class="mb-3">
                 <label class="form-label" for="price">Campground Price</label>
                 <div class="input-group">
                     <span class="input-group-text" id="price-label">€</span>
@@ -40,6 +36,15 @@
                     <div class="valid-feedback">
                         Sounds interesting!
           </div>
+            </div>
+            <div class="mb-3">
+                <div class="form-file custom-file">
+                    <input type="file" class="form-file-input" id="image" name="image" multiple>
+                    <label class="form-file-label" for="image">
+                        <span class="form-file-text custom-file-label">Add more image(s)...</span>
+                        <span class="form-file-button">Browse</span>
+                    </label>
+                </div>
             </div>
             <div class="mb-3">
                 <button class="btn btn-info">Save</button>
