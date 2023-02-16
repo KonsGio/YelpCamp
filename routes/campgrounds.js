@@ -31,7 +31,12 @@ router.post('/', isLoggedIn, validateCampground, catchAsync (async (req, res, ne
 
 // Showing campground by id ----- populating review data and author data for use  in templates
 router.get('/:id', catchAsync (async (req, res) => {
-    const campground = await Campground.findById(req.params.id).populate('reviews').populate('author');
+    const campground = await Campground.findById(req.params.id).populate({
+        path:'reviews',
+                populate:{
+                    path:'author'
+                }
+            }).populate('author');
     if(!campground){
         req.flash('error','Campground does not exist!')
         return res.redirect('/campgrounds');
