@@ -4,6 +4,10 @@ const campgrounds = require('../controllers/campgrounds');
 const catchAsync = require('../utils/catchAsync');
 const {isLoggedIn, isAuthor, validateCampground} = require('../middleware');
 
+// Multer is a middleware for multipart/form-data
+const multer = require('multer');
+const upload = multer({dest: 'uploads/'});
+
 
 // Grouping route
 router.route('/')
@@ -12,8 +16,10 @@ router.route('/')
 // Adding a new campground page
     .post(isLoggedIn, validateCampground, catchAsync(campgrounds.createCampground))
 
-// Adding a new campground page
+
+    // Adding a new campground page
 router.get('/new', isLoggedIn, campgrounds.renderNewForm)
+
 
 // Grouping id routes
 router.route('/:id')
@@ -27,5 +33,6 @@ router.route('/:id')
 
 // Editing campground by id
 router.get('/:id/edit', isLoggedIn, isAuthor, catchAsync (campgrounds.editCampground));
+
 
 module.exports = router;
