@@ -4,29 +4,8 @@ const catchAsync = require('../utils/catchAsync');
 const ExpressError = require('../utils/ExpressError');
 const Campground = require('../models/campground');
 const {campgroundSchema} = require('../schemas.js');
-const {isLoggedIn} = require('../middleware');
+const {isLoggedIn, isAuthor, validateCampground} = require('../middleware');
 
-// Middleware function to use JOI anywhere adding it to function as such (validateCampground, catchAsync)
-const validateCampground = (req, res, next) => {
-    const {error} = campgroundSchema.validate(req.body);
-    if(error){
-        const msg = error.details.map(el => el.message).join(',')
-        throw new ExpressError(msg, 400)
-    }else{
-        next();
-    }
-}
-
-// Middleware for author verification
-const isAuthor = async (req, res, next) => {
-    const {id} = req.params;
-    const campground = await Campground.findById(id);
-    if (!campground.author.equals(req.user._id)){
-        req.flash('error','You do not have permission to edit this Campground, you are NOT the author!');
-        return res.redirect(`/campgrounds/${id}`);
-    }
-    next();
-}
 
 // Showing all campgrounds
 router.get('/', catchAsync (async (req, res) => {
