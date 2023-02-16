@@ -1,29 +1,13 @@
 const express = require("express");
-
 // To merge params from here to app.use('/campgrounds/:id/reviews', reviews);
 // in app.js and granting access to review campground id
 const router = express.Router({mergeParams: true});
-
 const catchAsync = require('../utils/catchAsync');
-
 const Campground = require('../models/campground');
 const Review = require('../models/review');
-const {reviewSchema} = require('../schemas.js');
-
-const ExpressError = require('../utils/ExpressError');
-const { isLoggedIn } = require("../middleware");
+const { isLoggedIn, validateReview } = require("../middleware");
 
 
-// Middleware for reviews
-const validateReview = (req, res, next) => {
-    const {error} = reviewSchema.validate(req.body);
-    if(error){
-        const msg = error.details.map(el => el.message).join(',')
-        throw new ExpressError(msg, 400)
-    }else{
-        next();
-    }
-}
 
 // Submitting the review form to this url
 router.post('/', validateReview, isLoggedIn, catchAsync (async (req, res) => {
