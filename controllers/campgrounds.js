@@ -14,7 +14,7 @@ module.exports.createCampground = async (req, res, next) => {
     
     const campground = new Campground(req.body.campground);
     // Requesting files from campground model -> path and filename (multer)
-    campground.image = req.files.map(f => ({
+    campground.images = req.files.map(f => ({
         url: f.path,
         filename: f.filename
     }))
