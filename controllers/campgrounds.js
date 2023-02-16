@@ -13,6 +13,11 @@ module.exports.createCampground = async (req, res, next) => {
     // if(!req.body.campground) throw new ExpressError('Incomplete Campground Data', 400);
     
     const campground = new Campground(req.body.campground);
+    // Requesting files from campground model -> path and filename (multer)
+    campground.image = req.files.map(f => ({
+        url: f.path,
+        filename: f.filename
+    }))
     // Holding in the author id
     campground.author = req.user._id;
     await campground.save();
