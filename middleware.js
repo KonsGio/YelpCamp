@@ -1,13 +1,12 @@
 const {campgroundSchema, reviewSchema} = require('./schemas');
 const ExpressError = require('./utils/expressError');
 const Campground = require('./models/campground');
+const Review = require('./models/review');
 
 module.exports.isLoggedIn = (req, res, next) => {
     if(!req.isAuthenticated()){
-        
         // Storing URL before logging in
         req.session.returnTo = req.originalUrl;
-
         req.flash('error', 'You must log in first!');
         return res.redirect('/login');
     }
@@ -45,4 +44,14 @@ module.exports.validateReview = (req, res, next) => {
     }else{
         next();
     }
+}
+
+module.exports.isReviewAuthor = async (req, res, next) => {
+    const {id, reviewId} = req.params;
+    const review = await Review.findById(reviewId);
+    if (!review.author.equals(req.user._id)){
+        req.flash('error','You do not have permission to edit this Campground, you are NOT the author!');
+        return res.redirect(`/campgrounds/${id}`);
+    }
+    next();
 }
