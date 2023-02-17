@@ -43,6 +43,10 @@
         </div>
       </div>
       <div class="col-6">
+
+        <div id='map' ></div>
+
+
         <% if(!currentUser) {%>
         <h2>Login to leave a Review</h2>
         <% } else if(currentUser){ %>
@@ -94,3 +98,10 @@
             <% } %>
       </div>
 </div>
+
+
+<script>
+    const mapToken = '<%-process.env.MAPBOX_TOKEN%>';
+</script>
+
+<script src="/javascripts/showPageMap.js"></script>
