@@ -1,31 +1,44 @@
 <% layout('layouts/boilerplate') %>
-<h1>Register</h1>
-<form action="/register" method="POST" class="validated-form" novalidate>
-    <div class="mb-3">
-        <label class="form-label" for="username">Username</label>
-        <!-- grouping content together -->
-        <input class="form-control" type="text" id="username" required name="username">
-        <div class="valid-feedback">
-               Looks good!
+
+<div class="container d-flex justify-content-center align-items-center mb-5">
+    <div class="row">
+        <div class="col-md-6 offset-md-3 col-xl-4 offset-xl-4">
+            <div class="card shadow">
+                <img src="https://images.unsplash.com/photo-1510312305653-8ed496efae75?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" 
+                    alt="" class="card-img-top">
+                <div class="card-body">
+                    <h5 class="card-title">Register</h5>
+                    <form action="/register" method="POST" class="validated-form" novalidate>
+                        <div class="mb-3">
+                            <label class="form-label" for="username">Username</label>
+                            <!-- grouping content together -->
+                            <input class="form-control" type="text" id="username" required autofocus name="username">
+                            <div class="valid-feedback">
+                                   Looks good!
+                                </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="email">Email</label>
+                            <!-- grouping content together -->
+                            <input class="form-control" type="email" id="email" required name="email">
+                            <div class="valid-feedback">
+                                   Looks good!
+                                </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="password">Password</label>
+                            <!-- grouping content together -->
+                            <input class="form-control" type="text" id="password" required name="password">
+                            <div class="valid-feedback">
+                                   Looks good!
+                                </div>
+                        </div>
+                        <button class="btn btn-success btn-block">
+                            Register
+                        </button>
+                    </form>
+                </div>
             </div>
+        </div>
     </div>
-    <div class="mb-3">
-        <label class="form-label" for="email">Email</label>
-        <!-- grouping content together -->
-        <input class="form-control" type="email" id="email" required name="email">
-        <div class="valid-feedback">
-               Looks good!
-            </div>
-    </div>
-    <div class="mb-3">
-        <label class="form-label" for="password">Password</label>
-        <!-- grouping content together -->
-        <input class="form-control" type="text" id="password" required name="password">
-        <div class="valid-feedback">
-               Looks good!
-            </div>
-    </div>
-    <button class="btn btn-success">
-        Register
-    </button>
-</form>
+</div>
