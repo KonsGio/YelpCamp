@@ -26,6 +26,8 @@ const userRoutes = require('./routes/users');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('./models/user');
+const mongoSanitize = require('express-mongo-sanitize');
+
 
 // This is a developing database
 mongoose.connect(process.env.MONGODB_URI, {
@@ -57,6 +59,8 @@ app.use(methodOverride('_method'));
 
 // Telling express to serve public directory
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(mongoSanitize());
 
 // Configuring sessions
 const sessionConfig = {
