@@ -44,11 +44,12 @@
       </div>
       <div class="col-lg-6">
 
-        <div id='map' ></div>
+        <div id='map'></div>
 
 
         <% if(!currentUser) {%>
-        <h2>Login to leave a Review</h2>
+        <h2 class="mt-5">Login to leave a Review</h2>
+        <a class="mt-5 mb-5 btn btn btn-info btn-block" href="/login" role="button">Login</a>
         <% } else if(currentUser){ %>
           <h2>Leave a Review</h2>
             <form action="/campgrounds/<%=campground._id%>/reviews" method="POST" class="mb-3 validated-form" novalidate>
