@@ -1,7 +1,11 @@
 <% layout('layouts/boilerplate') %> 
+<div class="container d-flex justify-content-center align-items-center mb-5">
     <div class="row">
-        <h1 class="text-center">Edit Campground</h1>
-        <div class="col-6 offset-3">
+        <div class="col-md-6 offset-md-3 col-xl-4 offset-xl-4">
+        <div class="card shadow">
+            <img src="https://images.unsplash.com/photo-1526491109672-74740652b963?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" 
+                    alt="" class="card-img-top">
+            <div class="card-body">
             <form action="/campgrounds/<%=campground._id%>?_method=PUT " method="POST" novalidate class="validated-form" enctype="multipart/form-data">
                 <div class="mb-3">
                 <label class="form-label" for="title">Title</label>
@@ -62,4 +66,8 @@
         <footer>
             <a href="/campgrounds">Back to Campgrounds</a>
         </footer>
+          </div>
         </div>
+     </div>
+  </div>
+</div>
