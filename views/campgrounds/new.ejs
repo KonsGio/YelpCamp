@@ -1,57 +1,63 @@
 <% layout('layouts/boilerplate') %> 
-<div class="row">
-    <h1 class="text-center">New Campground</h1>
-    <div class="col-6 offset-3">
-    <form action="/campgrounds" method="POST" novalidate class="validated-form" enctype="multipart/form-data">
-        <div class="mb-3">
-            <label class="form-label" for="title">Title</label>
-            <!-- grouping content together -->
-            <input class="form-control" type="text" id="title" required name="campground[title]">
-            <div class="valid-feedback">
-                  Title looks good!
-                </div>
-        </div>
-        <div class="mb-3">
-            <label class="form-label" for="location">Location</label>
-            <!-- grouping content together -->
-            <input class="form-control" type="text" id="location" required name="campground[location]">
-            <div class="valid-feedback">
-                Location found!
-                </div>
-        </div>
-        <div class="mb-3">
-            <label class="form-label" for="price">Campground Price</label>
-            <div class="input-group">
-                <span class="input-group-text" id="price-label">€</span>
-                <input type="text" class="form-control" placeholder="0.00" id="price" required aria-label="price" aria-describedby="basic-addon1" name="campground[price]">
-                <div class="valid-feedback">
-                 Fair price!
+<div class="container d-flex justify-content-center align-items-center mb-5">
+    <div class="row">
+        <div class="col-md-6 offset-md-3 col-xl-4 offset-xl-4">
+        <div class="card shadow">
+            <img src="https://images.unsplash.com/photo-1571863533956-01c88e79957e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80" 
+                    alt="" class="card-img-top">
+            <div class="card-body">
+                <h5 class="card-title">Add New Campground</h5>
+                <form action="/campgrounds" method="POST" novalidate class="validated-form" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label class="form-label" for="title">Title</label>
+                        <!-- grouping content together -->
+                        <input class="form-control" type="text" id="title" required autofocus name="campground[title]">
+                        <div class="valid-feedback">
+                            Title looks good!
+                            </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="location">Location</label>
+                        <!-- grouping content together -->
+                        <input class="form-control" type="text" id="location" required name="campground[location]">
+                        <div class="valid-feedback">
+                            Location found!
+                            </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="price">Campground Price</label>
+                        <div class="input-group">
+                            <span class="input-group-text" id="price-label">€</span>
+                            <input type="text" class="form-control" placeholder="0.00" id="price" required aria-label="price" aria-describedby="basic-addon1" name="campground[price]">
+                            <div class="valid-feedback">
+                            Fair price!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="description">Description</label>
+                        <!-- grouping content together -->
+                        <textarea class="form-control" type="text" id="description" name="campground[description]" required></textarea>
+                        <div class="valid-feedback">
+                            Sounds interesting!
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="form-file custom-file">
+                            <input type="file" class="form-file-input" id="image" name="image" multiple>
+                            <label class="form-file-label" for="image">
+                                <span class="form-file-text custom-file-label">Choose image(s)...</span>
+                                <span class="form-file-button">Browse</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <button class="btn btn-success">Add Campground</button>
+                    </div>
+                    </form>
                 </div>
             </div>
-        </div>
-        <div class="mb-3">
-            <label class="form-label" for="description">Description</label>
-            <!-- grouping content together -->
-            <textarea class="form-control" type="text" id="description" name="campground[description]" required></textarea>
-            <div class="valid-feedback">
-                  Sounds interesting!
-            </div>
-        </div>
-        <div class="mb-3">
-            <div class="form-file custom-file">
-                <input type="file" class="form-file-input" id="image" name="image" multiple>
-                <label class="form-file-label" for="image">
-                    <span class="form-file-text custom-file-label">Choose image(s)...</span>
-                    <span class="form-file-button">Browse</span>
-                </label>
-            </div>
-        </div>
-        <div class="mb-3">
-            <button class="btn btn-success">Add Campground</button>
-        </div>
-        </form>
-    <footer>
-        <a href="/campgrounds">Back to Campgrounds</a>
-    </footer>
+         </div>
+       </div>
     </div>
 </div>
