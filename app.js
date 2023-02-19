@@ -62,10 +62,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(mongoSanitize());
 
+const secret = process.env.SECRET || 'thisshouldbeabettersecret!';
+
 // Configuring sessions
 const sessionConfig = {
     name:'session',
-    secret: 'thisisdemosecret',
+    secret,
     resave: false,
     saveUninitialized: true,
     cookie:{
