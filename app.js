@@ -16,7 +16,7 @@ const flash = require('connect-flash');
 // const {campgroundSchema} = require('./schemas.js');
 // const {reviewSchema} = require('./schemas.js');
 
-const ExpressError = require('./utils/ExpressError');
+const ExpressError = require('./utils/expressError');
 const methodOverride = require('method-override');
 
 const campgroundRoutes = require('./routes/campgrounds');
